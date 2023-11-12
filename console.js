@@ -1,6 +1,21 @@
 oldmessage=''
 newMessage=''
-
+//check if stranger is connected
+function checksr() {
+if(stranger_id==false) {
+  console.log("finding stranger");
+  document.getElementById("next-stranger")[0].click();
+  wait(2500);
+  if(stranger_id==false) {
+    console.log("stranger disconnected");
+    document.getElementById("next-stranger")[0].click();
+  } else {
+    console.log("stranger is connected");
+  }
+} else {
+  console.log("stranger is connected");
+}
+}
 //get strangers newest message
 function getms() {
 let messages = document.querySelectorAll('#msgs .stranger');
@@ -24,7 +39,7 @@ fetch('http://localhost:625/generate', {
 });
 }
 
-//send message to ai then reply
+//send message to ai then send reply
 function aibot(input) {
 let myVariable;
 
