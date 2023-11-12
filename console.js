@@ -46,7 +46,7 @@ const checkAFK = async () => {
     getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
-      await wait(7000); // Reduced wait time to 5 seconds
+      await wait(6000); // Reduced wait time to 5 seconds
       getStrangerMessage();
       if (newMessage === oldMessage) {
         console.log("stranger is not responding finding new stranger");
