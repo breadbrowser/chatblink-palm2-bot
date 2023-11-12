@@ -20,12 +20,12 @@ function checksr() {
 if(stranger_id==false) {
   console.log("finding stranger");
   clearChat(1);
-  document.getElementById("next-stranger")[0].click();
+  document.getElementById("next-stranger").click();
   wait(2500);
   if(stranger_id==false) {
     console.log("stranger disconnected");
     clearChat(1);
-    document.getElementById("next-stranger")[0].click();
+    document.getElementById("next-stranger").click();
   } else {
     console.log("stranger is connected");
   }
