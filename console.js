@@ -15,6 +15,23 @@ fetch('http://localhost:625/generate', {
   console.log(data);
 });
 }
+//send message to ai then send reply
+function aibot(input) {
+let myVariable;
+
+fetch('http://localhost:625/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({message: input})
+})
+.then(res => res.json())
+.then(data => {
+  console.log(data);
+  myVariable = data;
+});
+  
 //check if user is typing or afk
 function afk() {
 if(newMessage==oldmessage) {
@@ -25,9 +42,11 @@ if(newMessage==oldmessage) {
       document.getElementById("next-stranger")[0].click();
   } else {
   	oldmessage=newMessage
+    aibot(newMessage)
   }
 } else {
   oldmessage=newMessage
+  aibot(newMessage)
 }
 }
 //check if stranger is connected
@@ -55,23 +74,6 @@ let lastMessage = messages[messages.length - 1].innerText;
 console.log(lastMessage);
 newMessage=lastMessage
 }
-
-//send message to ai then send reply
-function aibot(input) {
-let myVariable;
-
-fetch('http://localhost:625/generate', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({message: input})
-})
-.then(res => res.json())
-.then(data => {
-  console.log(data);
-  myVariable = data;
-});
 
 $("#msg").val(myVariable[0]);
 document.getElementById('send_message').click();
