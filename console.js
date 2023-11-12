@@ -51,7 +51,7 @@ if(newMessage==oldmessage) {
   if(newMessage==oldmessage) {
   	  console.log("stranger is not responding finding new stranger");
       ch();
-      document.getElementById("next-stranger")[0].click();
+      document.getElementById("next-stranger").click();
   } else {
   	oldmessage=newMessage
     aibot(newMessage);
