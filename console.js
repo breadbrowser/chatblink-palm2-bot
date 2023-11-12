@@ -1,6 +1,15 @@
 oldmessage=''
 newMessage=''
 
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function myFunction() {
+  await wait(2500);
+  // Your code here
+}
+
 //clear chat
 function ch() {
 fetch('http://localhost:625/generate', {
