@@ -15,6 +15,14 @@ fetch('http://localhost:625/generate', {
   console.log(data);
 });
 }
+
+//get strangers newest message
+function getms() {
+let messages = document.querySelectorAll('#msgs .stranger');
+let lastMessage = messages[messages.length - 1].innerText;
+console.log(lastMessage);
+newMessage=lastMessage
+}
 //send message to ai then send reply
 function aibot(input) {
 let myVariable;
@@ -34,21 +42,24 @@ fetch('http://localhost:625/generate', {
   
 //check if user is typing or afk
 function afk() {
+getms();
 if(newMessage==oldmessage) {
   console.log("waiting to see user is just typing");
   wait(15000);
   if(newMessage==oldmessage) {
   	  console.log("stranger is not responding finding new stranger");
+      ch();
       document.getElementById("next-stranger")[0].click();
   } else {
   	oldmessage=newMessage
-    aibot(newMessage)
+    aibot(newMessage);
   }
 } else {
   oldmessage=newMessage
-  aibot(newMessage)
+  aibot(newMessage);
 }
 }
+  
 //check if stranger is connected
 function checksr() {
 if(stranger_id==false) {
@@ -66,13 +77,6 @@ if(stranger_id==false) {
 } else {
   console.log("stranger is connected");
 }
-}
-//get strangers newest message
-function getms() {
-let messages = document.querySelectorAll('#msgs .stranger');
-let lastMessage = messages[messages.length - 1].innerText;
-console.log(lastMessage);
-newMessage=lastMessage
 }
 
 $("#msg").val(myVariable[0]);
