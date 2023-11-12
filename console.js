@@ -21,13 +21,12 @@ const checksr = async () => {
     console.log("finding stranger");
     await clearChat(1);
     document.getElementById("next-stranger").click();
-    await wait(10000);
-    wait(2500);
+    await wait(5000);
     if(stranger_id==false) {
       console.log("stranger disconnected");
       await clearChat(1);
       document.getElementById("next-stranger").click();
-      await wait(10000);
+      await wait(5000);
     } else {
       console.log("stranger is connected");
     }
@@ -45,7 +44,7 @@ const getStrangerMessage = async () => {
     newMessage = lastMessage;
   } else {
     console.log("No messages found");
-    await wait(10000);
+    await wait(1000);
   }
 }
 
@@ -68,7 +67,7 @@ const checkAFK = async () => {
     await getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
-      await wait(10000);
+      await wait(1000);
     } else {
       oldMessage = newMessage;
       await sendBotMessage(newMessage);
