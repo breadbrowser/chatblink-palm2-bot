@@ -97,7 +97,8 @@ const sendBotMessage = async (input) => {
     body: JSON.stringify({ message: input })
   });
   const data = await response.json();
-  data = await data[0].replace(/\*/g, "");
+  data = await data[0];
+  data = data.replace(/\*/g, "");
   console.log(await data);
   var intervalId = setInterval(simulateKeyPress, 7000);
   await $("#msg").val(await data);
