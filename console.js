@@ -44,6 +44,7 @@ document.getElementById('send_message').click();
 } 
 //check if user is typing or afk
 function afk() {
+wait(2500);
 getms();
 if(newMessage==oldmessage) {
   console.log("waiting to see user is just typing");
