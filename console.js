@@ -42,68 +42,29 @@ const sendBotMessage = async (input) => {
 }
 
 const checkAFK = async () => {
-  getStrangerMessage();
-  if (newMessage === oldMessage) {
-    console.log("waiting to see user is just typing");
-    await wait(5000); // Reduced wait time to 5 seconds
+  while(true) {
     getStrangerMessage();
     if (newMessage === oldMessage) {
-      console.log("stranger is not responding finding new stranger");
-      await clearChat();
-      document.getElementById("next-stranger").click();
+      console.log("waiting to see user is just typing");
+      await wait(7000); // Reduced wait time to 5 seconds
+      getStrangerMessage();
+      if (newMessage === oldMessage) {
+        console.log("stranger is not responding finding new stranger");
+        await clearChat();
+        document.getElementById("next-stranger").click();
+      } else {
+        oldMessage = newMessage;
+        await sendBotMessage(newMessage);
+      }
     } else {
       oldMessage = newMessage;
       await sendBotMessage(newMessage);
     }
-  } else {
-    oldMessage = newMessage;
-    await sendBotMessage(newMessage);
-  }
-}
-
-const checkStranger = async () => {
-  if (!stranger_id) {
-    console.log("finding stranger");
-    await clearChat();
-    document.getElementById("next-stranger").click();
-    await wait(1500);
-    if (!stranger_id) {
-      console.log("stranger disconnected");
-      await clearChat();
-      document.getElementById("next-stranger").click();
-    } else {
-      console.log("stranger is connected");
-    }
-  } else {
-    console.log("stranger is connected");
-  }
-}
-
-const findStranger = async () => {
-  if (!stranger_id) {
-    console.log("finding stranger");
-    await clearChat();
-    document.getElementById("next-stranger").click();
-    await wait(1500);
-    if (!stranger_id) {
-      console.log("stranger disconnected");
-      await clearChat();
-      document.getElementById("next-stranger").click();
-    } else {
-      console.log("stranger is connected");
-      $("#msg").val('hi');
-      document.getElementById('send_message').click();
-    }
-  } else {
-    console.log("stranger is connected");
-    $("#msg").val('hi');
-    document.getElementById('send_message').click();
   }
 }
 
 const main = async () => {
-  await checkStranger();
-  await findStranger();
   await checkAFK();
 }
 
+main();
