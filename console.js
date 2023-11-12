@@ -1,6 +1,10 @@
 let oldMessage = '';
 let newMessage = '';
 
+function removePrefix(str) {
+    return str.split(":")[1].trim();
+}
+
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const clearChat = async () => {
@@ -25,14 +29,15 @@ const getStrangerMessage = () => {
 }
 
 const sendBotMessage = async (input) => {
+  input=removePrefix(input)
   const response = await fetch('http://localhost:625/generate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ message: input })
   });
   const data = await response.json();
-  console.log(data);
-  $("#msg").val(data[0]);
+  console.log(await data);
+  await $("#msg").val(await data[0]);
   document.getElementById('send_message').click();
 }
 
@@ -40,7 +45,7 @@ const checkAFK = async () => {
   getStrangerMessage();
   if (newMessage === oldMessage) {
     console.log("waiting to see user is just typing");
-    await wait(3000); // Reduced wait time to 5 seconds
+    await wait(5000); // Reduced wait time to 5 seconds
     getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("stranger is not responding finding new stranger");
@@ -101,3 +106,4 @@ const main = async () => {
   await findStranger();
   await checkAFK();
 }
+
