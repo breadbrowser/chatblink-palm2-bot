@@ -11,8 +11,6 @@ newMessage=lastMessage
 
 //clear chat
 function ch() {
-let myVariable;
-
 fetch('http://localhost:625/generate', {
   method: 'POST',
   headers: {
@@ -23,9 +21,10 @@ fetch('http://localhost:625/generate', {
 .then(res => res.json())
 .then(data => {
   console.log(data);
-  myVariable = data;
 });
-//send message to ai
+}
+
+//send message to ai then reply
 function aibot(input) {
 let myVariable;
 
@@ -41,6 +40,9 @@ fetch('http://localhost:625/generate', {
   console.log(data);
   myVariable = data;
 });
+
+$("#msg").val(myVariable[0]);
+document.getElementById('send_message').click();
 }
 
 //find stranger
@@ -62,6 +64,10 @@ if(stranger_id==false) {
   $("#msg").val('hi');
   document.getElementById('send_message').click();
 }
+}
+
+// main thing
+function main() {
 
 
 
@@ -73,6 +79,4 @@ if(stranger_id==false) {
 
 
 
-
-
-};
+}
