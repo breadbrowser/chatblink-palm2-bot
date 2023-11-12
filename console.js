@@ -1,129 +1,103 @@
-oldmessage=''
-newMessage=''
+let oldMessage = '';
+let newMessage = '';
 
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
+const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function myFunction() {
-  await wait(2500);
-  // Your code here
-}
-
-//clear chat
-function ch() {
-fetch('http://localhost:625/generate', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({message: "/56"})
-})
-.then(res => res.json())
-.then(data => {
+const clearChat = async () => {
+  const response = await fetch('http://localhost:625/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: "/56" })
+  });
+  const data = await response.json();
   console.log(data);
-});
 }
 
-//get strangers newest message
-function getms() {
-let messages = document.querySelectorAll('#msgs .stranger');
-let lastMessage = messages[messages.length - 1].innerText;
-console.log(lastMessage);
-newMessage=lastMessage
-}
-//send message to ai then send reply
-function aibot(input) {
-let myVariable;
-
-fetch('http://localhost:625/generate', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({message: input})
-})
-.then(res => res.json())
-.then(data => {
-  console.log(data);
-  myVariable = data;
-});
-$("#msg").val(myVariable[0]);
-document.getElementById('send_message').click();
-} 
-//check if user is typing or afk
-function afk() {
-getms();
-if(newMessage==oldmessage) {
-  console.log("waiting to see user is just typing");
-  wait(15000);
-  if(newMessage==oldmessage) {
-  	  console.log("stranger is not responding finding new stranger");
-      ch();
-      document.getElementById("next-stranger").click();
+const getStrangerMessage = () => {
+  const messages = document.querySelectorAll('#msgs .stranger');
+  if (messages.length > 0) {
+    const lastMessage = messages[messages.length - 1].innerText;
+    console.log(lastMessage);
+    newMessage = lastMessage;
   } else {
-  	oldmessage=newMessage
-    aibot(newMessage);
+    console.log("No messages found");
   }
-} else {
-  oldmessage=newMessage
-  aibot(newMessage);
 }
+
+const sendBotMessage = async (input) => {
+  const response = await fetch('http://localhost:625/generate', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message: input })
+  });
+  const data = await response.json();
+  console.log(data);
+  $("#msg").val(data[0]);
+  document.getElementById('send_message').click();
 }
-  
-//check if stranger is connected
-function checksr() {
-if(stranger_id==false) {
-  console.log("finding stranger");
-  ch(1);
-  document.getElementById("next-stranger").click();
-  wait(2500);
-  if(stranger_id==false) {
-    console.log("stranger disconnected");
-    ch(1);
+
+const checkAFK = async () => {
+  getStrangerMessage();
+  if (newMessage === oldMessage) {
+    console.log("waiting to see user is just typing");
+    await wait(15000);
+    getStrangerMessage();
+    if (newMessage === oldMessage) {
+      console.log("stranger is not responding finding new stranger");
+      await clearChat();
+      document.getElementById("next-stranger").click();
+    } else {
+      oldMessage = newMessage;
+      await sendBotMessage(newMessage);
+    }
+  } else {
+    oldMessage = newMessage;
+    await sendBotMessage(newMessage);
+  }
+}
+
+const checkStranger = async () => {
+  if (!stranger_id) {
+    console.log("finding stranger");
+    await clearChat();
     document.getElementById("next-stranger").click();
+    await wait(2500);
+    if (!stranger_id) {
+      console.log("stranger disconnected");
+      await clearChat();
+      document.getElementById("next-stranger").click();
+    } else {
+      console.log("stranger is connected");
+    }
   } else {
     console.log("stranger is connected");
   }
-} else {
-  console.log("stranger is connected");
-}
 }
 
-//find stranger
-function sag() {
-if(stranger_id==false) {
-  console.log("finding stranger");
-  ch(1);
-  document.getElementById("next-stranger").click();
-  wait(2500);
-  if(stranger_id==false) {
-    console.log("stranger disconnected");
-    ch(1);
+const findStranger = async () => {
+  if (!stranger_id) {
+    console.log("finding stranger");
+    await clearChat();
     document.getElementById("next-stranger").click();
+    await wait(2500);
+    if (!stranger_id) {
+      console.log("stranger disconnected");
+      await clearChat();
+      document.getElementById("next-stranger").click();
+    } else {
+      console.log("stranger is connected");
+      $("#msg").val('hi');
+      document.getElementById('send_message').click();
+    }
   } else {
     console.log("stranger is connected");
     $("#msg").val('hi');
     document.getElementById('send_message').click();
   }
-} else {
-  console.log("stranger is connected");
-  $("#msg").val('hi');
-  document.getElementById('send_message').click();
-}
 }
 
-// main thing
-function main() {
-checksr(1);
-sag(1);
-// Check if the element exists
-var element = document.getElementById("tiping");
-
-// If it doesn't exist, create a placeholder
-if (!element) {
-afk(1);
-}
-
-
+const main = async () => {
+  await checkStranger();
+  await findStranger();
+  await checkAFK();
 }
