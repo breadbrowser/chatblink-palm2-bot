@@ -7,6 +7,11 @@ function removePrefix(str) {
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+var typingInterval = setInterval(function() {
+    socket.emit("typing", stranger_session);
+}, 100); // Emit 'typing' event every 100 milliseconds
+
+
 const clearChat = async () => {
   const response = await fetch('http://localhost:625/generate', {
     method: 'POST',
@@ -58,6 +63,9 @@ const sendBotMessage = async (input) => {
   const data = await response.json();
   console.log(await data);
   await $("#msg").val(await data[0]);
+  await setTimeout(function() {
+    clearInterval(typingInterval); // Stop emitting after 5 seconds
+   }, 5000);
   document.getElementById('send_message').click();
 }
 
