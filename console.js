@@ -1,5 +1,21 @@
 oldmessage=''
 newMessage=''
+
+//clear chat
+function ch() {
+fetch('http://localhost:625/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({message: "/56"})
+})
+.then(res => res.json())
+.then(data => {
+  console.log(data);
+});
+}
+
 //check if stranger is connected
 function checksr() {
 if(stranger_id==false) {
@@ -22,21 +38,6 @@ let messages = document.querySelectorAll('#msgs .stranger');
 let lastMessage = messages[messages.length - 1].innerText;
 console.log(lastMessage);
 newMessage=lastMessage
-}
-
-//clear chat
-function ch() {
-fetch('http://localhost:625/generate', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify({message: "/56"})
-})
-.then(res => res.json())
-.then(data => {
-  console.log(data);
-});
 }
 
 //send message to ai then send reply
