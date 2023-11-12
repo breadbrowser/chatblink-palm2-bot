@@ -5,6 +5,23 @@ function removePrefix(str) {
     return str.split(":")[1].trim();
 }
 
+function checksr() {
+if(stranger_id==false) {
+  console.log("finding stranger");
+  ch(1);
+  document.getElementById("next-stranger")[0].click();
+  wait(2500);
+  if(stranger_id==false) {
+    console.log("stranger disconnected");
+    ch(1);
+    document.getElementById("next-stranger")[0].click();
+  } else {
+    console.log("stranger is connected");
+  }
+} else {
+  console.log("stranger is connected");
+}
+}
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const clearChat = async () => {
@@ -43,8 +60,9 @@ const sendBotMessage = async (input) => {
 
 const checkAFK = async () => {
   while(true) {
-    await checkStranger();
-    await getStrangerMessage();
+    wait(1000)
+    checksr();
+    getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
     } else {
