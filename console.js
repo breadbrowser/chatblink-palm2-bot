@@ -34,16 +34,12 @@ async function simulateKeyPress() {
 
     // Dispatch the events
     textarea.dispatchEvent(keydownEvent);
+    await wait(50)
     textarea.dispatchEvent(keyupEvent);
 
     counter++; // Increment the counter
 
-    await wait(500)
-
-    // If 5 seconds have passed (assuming each key press takes 1 second)
-    if (counter >= 5) {
-        clearInterval(intervalId); // Stop the interval
-    }
+    await wait(100)
 }
 
 
@@ -103,7 +99,9 @@ const sendBotMessage = async (input) => {
   let data = data2[0];
   data = data.replace(/\*/g, "");
   console.log(data);
-  setInterval(simulateKeyPress, 7000);
+  for(let i = 0; i < 6; i++) {
+    simulateKeyPress();
+  }
   await $("#msg").val(data);
   document.getElementById('send_message').click();
 }
