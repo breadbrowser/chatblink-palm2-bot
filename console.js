@@ -101,7 +101,7 @@ const sendBotMessage = async (input) => {
   data = data.replace(/\!/g, "");
   console.log(data);
   for(let i = 0; i < 6; i++) {
-    simulateKeyPress();
+    await simulateKeyPress();
   }
   await $("#msg").val(data);
   document.getElementById('send_message').click();
