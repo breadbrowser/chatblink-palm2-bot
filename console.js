@@ -5,23 +5,6 @@ function removePrefix(str) {
     return str.split(":")[1].trim();
 }
 
-function checksr() {
-if(stranger_id==false) {
-  console.log("finding stranger");
-  ch(1);
-  document.getElementById("next-stranger")[0].click();
-  wait(2500);
-  if(stranger_id==false) {
-    console.log("stranger disconnected");
-    ch(1);
-    document.getElementById("next-stranger")[0].click();
-  } else {
-    console.log("stranger is connected");
-  }
-} else {
-  console.log("stranger is connected");
-}
-}
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const clearChat = async () => {
@@ -32,6 +15,23 @@ const clearChat = async () => {
   });
   const data = await response.json();
   console.log(data);
+}
+function checksr() {
+if(stranger_id==false) {
+  console.log("finding stranger");
+  clearChat(1);
+  document.getElementById("next-stranger")[0].click();
+  wait(2500);
+  if(stranger_id==false) {
+    console.log("stranger disconnected");
+    clearChat(1);
+    document.getElementById("next-stranger")[0].click();
+  } else {
+    console.log("stranger is connected");
+  }
+} else {
+  console.log("stranger is connected");
+}
 }
 
 const getStrangerMessage = () => {
