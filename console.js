@@ -39,7 +39,7 @@ async function simulateKeyPress() {
 
     counter++; // Increment the counter
 
-    await wait(100)
+    await wait(10)
 }
 
 
