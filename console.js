@@ -40,7 +40,7 @@ const checkAFK = async () => {
   getStrangerMessage();
   if (newMessage === oldMessage) {
     console.log("waiting to see user is just typing");
-    await wait(15000);
+    await wait(3000); // Reduced wait time to 5 seconds
     getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("stranger is not responding finding new stranger");
@@ -61,7 +61,7 @@ const checkStranger = async () => {
     console.log("finding stranger");
     await clearChat();
     document.getElementById("next-stranger").click();
-    await wait(2500);
+    await wait(1500);
     if (!stranger_id) {
       console.log("stranger disconnected");
       await clearChat();
@@ -79,7 +79,7 @@ const findStranger = async () => {
     console.log("finding stranger");
     await clearChat();
     document.getElementById("next-stranger").click();
-    await wait(2500);
+    await wait(1500);
     if (!stranger_id) {
       console.log("stranger disconnected");
       await clearChat();
