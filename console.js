@@ -39,7 +39,9 @@ fetch('http://localhost:625/generate', {
   console.log(data);
   myVariable = data;
 });
-  
+$("#msg").val(myVariable[0]);
+document.getElementById('send_message').click();
+} 
 //check if user is typing or afk
 function afk() {
 getms();
@@ -77,10 +79,6 @@ if(stranger_id==false) {
 } else {
   console.log("stranger is connected");
 }
-}
-
-$("#msg").val(myVariable[0]);
-document.getElementById('send_message').click();
 }
 
 //find stranger
