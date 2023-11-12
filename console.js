@@ -110,14 +110,7 @@ if(stranger_id==false) {
 function main() {
 checksr();
 sag();
-
-
-
-
-
-
-
-
+afk();
 
 
 }
