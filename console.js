@@ -98,6 +98,7 @@ const sendBotMessage = async (input) => {
   const data2 = await response.json();
   let data = data2[0];
   data = data.replace(/\*/g, "");
+  data = data.replace(/\!/g, "");
   console.log(data);
   for(let i = 0; i < 6; i++) {
     simulateKeyPress();
