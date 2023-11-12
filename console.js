@@ -11,7 +11,7 @@ var textarea = document.getElementById('msg'); // Get the textarea element
 var counter = 0; // Initialize a counter
 
 // Define a function to simulate a key press
-function simulateKeyPress() {
+async function simulateKeyPress() {
     // Create a new 'keydown' event
     var keydownEvent = new KeyboardEvent('keydown', {
         key: 'a',
@@ -21,7 +21,7 @@ function simulateKeyPress() {
         view: window,
         bubbles: true
     });
-
+    
     // Create a new 'keyup' event
     var keyupEvent = new KeyboardEvent('keyup', {
         key: 'a',
@@ -38,11 +38,14 @@ function simulateKeyPress() {
 
     counter++; // Increment the counter
 
+    await wait(500)
+
     // If 5 seconds have passed (assuming each key press takes 1 second)
     if (counter >= 5) {
         clearInterval(intervalId); // Stop the interval
     }
 }
+
 
 // Call the function every 1 second (1000 milliseconds)
 
