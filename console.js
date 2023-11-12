@@ -15,7 +15,21 @@ fetch('http://localhost:625/generate', {
   console.log(data);
 });
 }
-
+//check if user is typing or afk
+function afk() {
+if(newMessage==oldmessage) {
+  console.log("waiting to see if using is typing");
+  wait(15000);
+  if(newMessage==oldmessage) {
+  	  console.log("stranger is not responding finding new stranger");
+      document.getElementById("next-stranger")[0].click();
+  } else {
+  	oldmessage=newMessage
+  }
+} else {
+  oldmessage=newMessage
+}
+}
 //check if stranger is connected
 function checksr() {
 if(stranger_id==false) {
@@ -88,7 +102,8 @@ if(stranger_id==false) {
 
 // main thing
 function main() {
-
+checksr();
+sag();
 
 
 
