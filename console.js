@@ -110,6 +110,7 @@ const sendBotMessage = async (input) => {
 const checkAFK = async () => {
   while(true) {
     await checksr();
+    await wait(300)
     await getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
