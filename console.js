@@ -7,9 +7,45 @@ function removePrefix(str) {
 
 const wait = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-var typingInterval = setInterval(function() {
-    socket.emit("typing", stranger_session);
-}, 100); // Emit 'typing' event every 100 milliseconds
+var textarea = document.getElementById('msg'); // Get the textarea element
+var counter = 0; // Initialize a counter
+
+// Define a function to simulate a key press
+function simulateKeyPress() {
+    // Create a new 'keydown' event
+    var keydownEvent = new KeyboardEvent('keydown', {
+        key: 'a',
+        code: 'KeyA',
+        charCode: 97,
+        keyCode: 97,
+        view: window,
+        bubbles: true
+    });
+
+    // Create a new 'keyup' event
+    var keyupEvent = new KeyboardEvent('keyup', {
+        key: 'a',
+        code: 'KeyA',
+        charCode: 97,
+        keyCode: 97,
+        view: window,
+        bubbles: true
+    });
+
+    // Dispatch the events
+    textarea.dispatchEvent(keydownEvent);
+    textarea.dispatchEvent(keyupEvent);
+
+    counter++; // Increment the counter
+
+    // If 5 seconds have passed (assuming each key press takes 1 second)
+    if (counter >= 5) {
+        clearInterval(intervalId); // Stop the interval
+    }
+}
+
+// Call the function every 1 second (1000 milliseconds)
+
 
 
 const clearChat = async () => {
@@ -62,10 +98,8 @@ const sendBotMessage = async (input) => {
   });
   const data = await response.json();
   console.log(await data);
+  var intervalId = setInterval(simulateKeyPress, 2000);
   await $("#msg").val(await data[0]);
-  await setTimeout(function() {
-    clearInterval(typingInterval); // Stop emitting after 5 seconds
-   }, 5000);
   document.getElementById('send_message').click();
 }
 
