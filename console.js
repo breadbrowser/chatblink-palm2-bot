@@ -1,6 +1,7 @@
 oldmessage=''
 newMessage=''
 
+//get strangers newest message
 function getms() {
 let messages = document.querySelectorAll('#msgs .stranger');
 let lastMessage = messages[messages.length - 1].innerText;
@@ -8,6 +9,23 @@ console.log(lastMessage);
 newMessage=lastMessage
 }
 
+//clear chat
+function ch() {
+let myVariable;
+
+fetch('http://localhost:625/generate', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({message: "/56"})
+})
+.then(res => res.json())
+.then(data => {
+  console.log(data);
+  myVariable = data;
+});
+//send message to ai
 function aibot(input) {
 let myVariable;
 
