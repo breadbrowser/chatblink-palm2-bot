@@ -20,12 +20,12 @@ fetch('http://localhost:625/generate', {
 function checksr() {
 if(stranger_id==false) {
   console.log("finding stranger");
-  ch(1)
+  ch(1);
   document.getElementById("next-stranger")[0].click();
   wait(2500);
   if(stranger_id==false) {
     console.log("stranger disconnected");
-    ch(1)
+    ch(1);
     document.getElementById("next-stranger")[0].click();
   } else {
     console.log("stranger is connected");
@@ -67,10 +67,12 @@ document.getElementById('send_message').click();
 function sag() {
 if(stranger_id==false) {
   console.log("finding stranger");
+  ch(1);
   document.getElementById("next-stranger")[0].click();
   wait(2500);
   if(stranger_id==false) {
     console.log("stranger disconnected");
+    ch(1);
     document.getElementById("next-stranger")[0].click();
   } else {
     console.log("stranger is connected");
