@@ -53,7 +53,6 @@ document.getElementById('send_message').click();
 } 
 //check if user is typing or afk
 function afk() {
-wait(2500);
 getms();
 if(newMessage==oldmessage) {
   console.log("waiting to see user is just typing");
@@ -118,7 +117,13 @@ if(stranger_id==false) {
 function main() {
 checksr(1);
 sag(1);
+// Check if the element exists
+var element = document.getElementById("tiping");
+
+// If it doesn't exist, create a placeholder
+if (!element) {
 afk(1);
+}
 
 
 }
