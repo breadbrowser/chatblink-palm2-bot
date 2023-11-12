@@ -43,7 +43,8 @@ const sendBotMessage = async (input) => {
 
 const checkAFK = async () => {
   while(true) {
-    getStrangerMessage();
+    await checkStranger();
+    await getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
     } else {
