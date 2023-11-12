@@ -16,27 +16,28 @@ const clearChat = async () => {
   const data = await response.json();
   console.log(data);
 }
-function checksr() {
-if(stranger_id==false) {
-  console.log("finding stranger");
-  clearChat(1);
-  document.getElementById("next-stranger").click();
-  await wait(10000);
-  wait(2500);
+const checksr = async () => {
   if(stranger_id==false) {
-    console.log("stranger disconnected");
-    clearChat(1);
+    console.log("finding stranger");
+    await clearChat(1);
     document.getElementById("next-stranger").click();
     await wait(10000);
+    wait(2500);
+    if(stranger_id==false) {
+      console.log("stranger disconnected");
+      await clearChat(1);
+      document.getElementById("next-stranger").click();
+      await wait(10000);
+    } else {
+      console.log("stranger is connected");
+    }
   } else {
     console.log("stranger is connected");
   }
-} else {
-  console.log("stranger is connected");
-}
 }
 
-const getStrangerMessage = () => {
+
+const getStrangerMessage = async () => {
   const messages = document.querySelectorAll('#msgs .stranger');
   if (messages.length > 0) {
     const lastMessage = messages[messages.length - 1].innerText;
