@@ -108,9 +108,9 @@ if(stranger_id==false) {
 
 // main thing
 function main() {
-checksr();
-sag();
-afk();
+checksr(1);
+sag(1);
+afk(1);
 
 
 }
