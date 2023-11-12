@@ -18,7 +18,7 @@ fetch('http://localhost:625/generate', {
 //check if user is typing or afk
 function afk() {
 if(newMessage==oldmessage) {
-  console.log("waiting to see if using is typing");
+  console.log("waiting to see user is just typing");
   wait(15000);
   if(newMessage==oldmessage) {
   	  console.log("stranger is not responding finding new stranger");
