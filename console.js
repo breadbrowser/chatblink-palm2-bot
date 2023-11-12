@@ -21,11 +21,13 @@ if(stranger_id==false) {
   console.log("finding stranger");
   clearChat(1);
   document.getElementById("next-stranger").click();
+  await wait(10000);
   wait(2500);
   if(stranger_id==false) {
     console.log("stranger disconnected");
     clearChat(1);
     document.getElementById("next-stranger").click();
+    await wait(10000);
   } else {
     console.log("stranger is connected");
   }
@@ -42,6 +44,7 @@ const getStrangerMessage = () => {
     newMessage = lastMessage;
   } else {
     console.log("No messages found");
+    await wait(10000);
   }
 }
 
@@ -60,11 +63,11 @@ const sendBotMessage = async (input) => {
 
 const checkAFK = async () => {
   while(true) {
-    wait(1000)
-    checksr();
-    getStrangerMessage();
+    await checksr();
+    await getStrangerMessage();
     if (newMessage === oldMessage) {
       console.log("waiting to see user is just typing");
+      await wait(10000);
     } else {
       oldMessage = newMessage;
       await sendBotMessage(newMessage);
