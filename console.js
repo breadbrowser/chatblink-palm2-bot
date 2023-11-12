@@ -98,7 +98,7 @@ const sendBotMessage = async (input) => {
   });
   const data = await response.json();
   console.log(await data);
-  var intervalId = setInterval(simulateKeyPress, 2000);
+  var intervalId = setInterval(simulateKeyPress, 5000);
   await $("#msg").val(await data[0]);
   document.getElementById('send_message').click();
 }
