@@ -100,7 +100,7 @@ const sendBotMessage = async (input) => {
   data = data.replace(/\*/g, "");
   data = data.replace(/\!/g, "");
   console.log(data);
-  for(let i = 0; i < 2; i++) {
+  for(let i = 0; i < 1; i++) {
     await simulateKeyPress();
   }
   await $("#msg").val(data);
